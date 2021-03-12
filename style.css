@@ -1,0 +1,141 @@
+* {
+
+    box-sizing: border-box;
+}
+
+body {
+    font-family: cursive;
+    background: rgb(216, 194, 194);
+}
+
+.surrounding {
+    height: 200px;
+    background: rgb(155, 199, 155);
+    padding: 30px 40px;
+    text-align: center;
+
+
+}
+
+#text {
+    font-family: fantasy;
+    font-size: 30px;
+    position: absolute;
+    top: 40px;
+    left: 40%;
+    color: white;
+}
+
+.container {
+    margin: 0 0 0 0;
+}
+
+input {
+
+    margin: 0;
+    width: 75%;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    float: left;
+    padding: 10px;
+}
+
+.btn {
+    width: 25%;
+    float: left;
+    text-align: center;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+    border-radius: 6px;
+    background: rgb(218, 188, 188);
+    color: green;
+    padding: 8px;
+}
+
+.btn:hover {
+    background: grey;
+    color: yellowgreen;
+}
+
+::placeholder {
+    text-align: center;
+    color: rgb(167, 166, 166);
+    font-size: 20px;
+}
+
+
+input:focus {
+    background: white;
+    color: green;
+    outline: none;
+    color: green;
+    text-align: center;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+}
+
+ul li {
+    cursor: pointer;
+    position: relative;
+    padding: 12px 8px 12px 40px;
+    font-size: 18px;
+    transition: 0.2s;
+    user-select: none;
+}
+
+ul li:nth-child(odd) {
+    background: white;
+}
+
+ul li:hover {
+    background: rgba(247, 247, 216, 0.479);
+}
+
+ul li.checked {
+    background: rgb(77, 129, 77);
+    color: white;
+    text-decoration: line-through;
+}
+
+ul li.checked::before {
+    content: "";
+    position: absolute;
+    border-color: #ddd;
+    border-style: solid;
+    border-width: 0 2px 2px 0;
+    top: 10px;
+    left: 16px;
+    transform: rotate(45deg);
+    width: 7px;
+    height: 15px;
+}
+
+.close {
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 12px 16px 12px 16px;
+}
+
+.close:hover {
+    background: rgb(7, 5, 5);
+    color: white;
+}
+
+.surrounding::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.clockhouse {
+    border: 2px solid white;
+    border-radius: 5px;
+    color: white;
+    background: white;
+}
