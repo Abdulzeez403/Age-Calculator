@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Age calculator</title>
+</head>
+<style>
+    ::after,
+    ::before{
+        box-sizing: border-box;  
+          }
+          *{
+              position: relative;
+              margin:0;
+              padding:0;
+              box-sizing: border-box; 
+          }
+          body{
+              position:relative;
+              width:100%;
+              min-height:100vh;
+              background-image: linear-gradient(to right, #43e97b 0%, #38f9d7 100%);
+              display: flex;
+              align-items:center;
+              justify-content:center;
+              font-family: "Roboto", sans-serif;
+          }
+          
+        
+          .box{
+            position:relative;
+              background:rgb(169, 214, 125);
+              width:768px;
+              backdrop-filter:blur(15px);
+              padding:20px;
+              border-radius: 20px;
+              transition: width  500ms ease;
+              }
+              .box h4{
+                  text-align:center;
+                  margin-bottom:20px;
+                  font-size:1.2rem;
+                  text-transform:uppercase;
+              }
+              .box .date-picker{
+                  position:relative;
+                  display: flex;
+                  align-items:center;
+              }
+              .box .date-picker input{
+                  margin: 0 10px;
+                  border:0;
+                  padding: .5rem;
+                  border-radius:10px;
+                  transition: box-shadow 300ms ease;
+              }
+              .box .date-picker input:focus{
+                outline:none;
+                box-shadow: 0 0 10pxx #292929;
+              }
+              .box .date-picker span{
+                  display: inline-block;
+                  text-transform: uppercase;
+              }
+              .box .date-picker span#choseDate{
+                  margin-left: auto;
+              }
+              .age-calcu {
+                  position: relative;
+                  display: flex;
+                  align-items: center;
+                  flex-wrap: wrap;
+                  margin-top:0;
+                  max-height:0;
+                  opacity:0;
+                  overflow:hidden;
+                  transition: max-height 2s, opacity 3s, margin 250ms  ease;
+
+              }
+              .age-calcu.expand{
+                margin-top:30px;
+                  max-height:1000px;
+                  opacity:1;
+              }
+              .age-calcu .age-box{
+                  position: relative;
+                  background: #fff;
+                  border-radius: 10px;
+                  margin:10px;
+                  width:222px;
+                  transition: 500ms ease;
+              }
+              .age-calcu .age-box p.header{
+               position:relative;
+                text-align:center;
+                  background: #3af7c9;
+                padding: 10px 30px;
+               border-radius: 10px 10px 0 0;
+              font-size: 1.2rem;
+               font-size: 500;
+                text-transform: uppercase;
+              }
+              .age-calcu .age-box:nth-child(even) p.header{
+                background:#40ef9b;
+              }
+              .age-calcu .age-box .value{
+                  text-align:center;
+                  padding: 30px 20px;
+                  font-size:1.5rem;
+                  transition: 500ms ease;
+              }
+              /*Responsive*/
+              @media (max-width: 768px){
+                  body{
+                      display: block;
+                      margin:2rem 0;
+                  }
+                  .box{
+                      width: 600px;
+                      margin: 0 auto;
+                  }
+                  .age-calcu .age-box {
+                      width:150px;
+                  }
+                .age-calcu .age-box p.header{
+                    padding: 10px 5px;
+                    font-size: .8rem;
+                }
+                .age-calcu .age-box .value{
+                    padding: 30px 5px;
+                    font-size: .9rem;
+                }
+              }
+
+
+
+</style>
+<body>
+    <div class="box">
+        <h4>age calculator</h4>
+    <div class="date-picker">
+<span>choose your birth date</span>
+<input type="date" id="datePicker">
+<span id="choseDate"></span>
+    </div>
+    <div class="age-calcu">
+        <div class="age-box">
+            <p class="header">Years</p>
+            <p class="value" id="ageYear">0</p>
+        </div>
+        <div class="age-box">
+            <p class="header">Month</p>
+            <p class="value" id="ageMonth">0</p>
+        </div>
+
+           <div class="age-box">
+            <p class="header">Days</p>
+            <p class="value" id="ageDay">0</p>
+        </div>
+        <div class="age-box">
+            <p class="header">Hours</p>
+            <p class="value" id="ageHour">0</p>
+        </div>
+    <div class="age-box">
+        <p class="header">Seconds</p>
+        <p class="value" id="ageSecond">0<p>
+    </div>
+    <div class="age-box">
+        <p class="header">mill seconds</p>
+        <p class="value" id="ageMill">0</p>
+    </div>
+</div>
+
+<script>
+    //variable for DatePicker
+    var datePicker= document.getElementById('datePicker');
+    var choseDate= document.getElementById('choseDate');
+
+     // variable for printing values
+   let   ageYear = document.getElementById("ageYear");
+   let  ageMouth = document.getElementById("ageMouth");
+   let  ageDay = document.getElementById("ageDay");
+   let  ageHour = document.getElementById("ageHour");
+   let  ageSecond = document.getElementById("ageSecond");
+   let  ageMilli = document.getElementById("ageMill");
+
+   datePicker.addEventListener("change", function(){
+       var options ={year: "numeric", month: "long", day: "numeric"};
+var selectedDate = new Date(this.value);
+var DOB = selectedDate.toLocaleDateString('en-US', options);
+
+choseDate.innerHTML = "DOB: "+" " + DOB;
+
+var millSeconds_btw_DOB = Date.parse(DOB);
+var millSeconds_btw_Now = Date.now();
+var age_in_MiliSeconds =millSeconds_btw_Now -  millSeconds_btw_DOB;
+
+//console.log(age_in_MiliSeconds);
+var milliSeconds = age_in_MiliSeconds;
+var second = 1000;
+var minute = second*60;
+var hour = minute*60;
+var day = hour*24;
+var month = day*30;
+var year = day*365;
+
+//Now start the calculator
+var years = Math.round(milliSeconds/year);
+var months = years*12;
+var days =years*365;
+var hours=Math.round(milliSeconds/hour);
+var Seconds = Math.round(milliSeconds/second);
+
+//Now it is time to pront values iin boxes.
+
+ageYear.innerHTML =years
+ageMonth.innerHTML = months
+ageDay.innerHTML= days
+ageHour.innerHTML= hours
+ageSecond.innerHTML=Seconds
+ageMilli.innerHTML= milliSeconds;
+document.querySelector(".age-calcu").classList.add("expand");
+   });
+
+</script>
+</body>
+</html>
